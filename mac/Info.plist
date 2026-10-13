@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0"><dict>
+<key>CFBundleIdentifier</key><string>local.pulse.speech</string>
+<key>CFBundleName</key><string>Pulse Speech</string>
+<key>CFBundleExecutable</key><string>PulseSpeech</string>
+<key>CFBundleVersion</key><string>1</string>
+<key>CFBundlePackageType</key><string>APPL</string>
+<key>LSUIElement</key><true/>
+<key>NSSpeechRecognitionUsageDescription</key><string>Transcribe audio from your StopWatch badge locally and copy the text for you to paste into Codex.</string>
+</dict></plist>
