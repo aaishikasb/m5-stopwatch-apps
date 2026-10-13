@@ -1,0 +1,12 @@
+.arduino/
+build/
+flight_radar/secrets.h
+pulse_station/helvetica_generated.h
+recovery/
+.DS_Store
+__pycache__/
+*.py[cod]
+.venv/
+*.bin
+*.elf
+*.map
