@@ -25,17 +25,14 @@ Source-rendered preview with sample data; not a device photograph.
 ## Build
 
 Requires Arduino CLI (the copy bundled with Arduino IDE on macOS also works).
-Host checks require a C++17 compiler, Python 3, and `pyserial`.
+Shared checks require C++17 and Python 3.
 
 Run these commands from the repository root:
 
 ```sh
-python3 -m venv .venv
-source .venv/bin/activate
-python3 -m pip install pyserial
 ./scripts/setup.sh
 # Edit flight_radar/secrets.h with your 2.4 GHz Wi-Fi SSID and password.
-./scripts/build.sh
+./scripts/build-app.sh flight_radar
 ./scripts/test.sh
 ```
 
@@ -53,17 +50,16 @@ the first request. A network blocking NTP can leave the badge waiting for its cl
 Without Wi-Fi credentials, the firmware builds but displays a setup message.
 Keep `secrets.h` and generated binaries private: configured binaries contain your
 Wi-Fi credentials. Review changes to `config.h` before committing if your radar
-center is private. See the [source-sharing guidance](../README.md#sharing-source).
+center is private. Build output is saved in `build/flight_radar/`.
 
 See [installation and recovery](../README.md#installation-and-recovery) before
 flashing. Building does not upload firmware.
 
 ## Checks and limits
 
-`scripts/test.sh` tests malformed and missing feed fields, stale positions, unknown
-altitude/heading, emergency squawks, movement limits, the date line, millisecond
-clock wrap, and source/compiled partition layout. It also checks the compiled app
-fits in its 3 MB slot when a build is present.
+App-specific automated tests are not included; see [available checks](../README.md#development).
+Check live feed updates, range changes, aircraft selection, and Wi-Fi reconnection
+on the badge. The Arduino build reports the compiled app's size against its slot.
 
 The radar keeps up to 128 valid positions from each response and uses a local
 projection appropriate to these ranges. Free feeds can omit aircraft or be delayed

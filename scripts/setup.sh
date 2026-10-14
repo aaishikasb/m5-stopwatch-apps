@@ -9,4 +9,4 @@ if [[ ! -f flight_radar/secrets.h ]]; then
   cp flight_radar/secrets.example.h flight_radar/secrets.h
   chmod 600 flight_radar/secrets.h
 fi
-echo 'Set your 2.4 GHz Wi-Fi in flight_radar/secrets.h, then run ./scripts/build.sh.'
+echo 'Tools are ready. Build an app with ./scripts/build-app.sh APP; see its README for configuration.'

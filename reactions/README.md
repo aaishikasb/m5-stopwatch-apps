@@ -28,8 +28,8 @@ Requires Arduino CLI (or Arduino IDE on macOS). Install the pinned tools with
 ./scripts/test.sh
 ```
 
-Host tests require a C++17 compiler, Python 3, and `pyserial` installed in your
-Python environment. The firmware build itself needs no Python packages.
+Shared checks require C++17 and Python 3; see [check coverage](../README.md#development).
+The firmware build itself needs no Python packages.
 
 Firmware goes to `build/reactions/`. No upload is performed. Read the shared
 [installation guidance](../README.md#installation-and-recovery) before flashing.
@@ -86,9 +86,8 @@ PINs, or scores are saved to device storage.
 
 ## Verification
 
-Host tests cover 2–5-player room limits, readiness, ties, false starts, hold and
-tap timing, clock wrap, stale results, disconnect/round timeouts, and malformed
-packets. The firmware compiles with the preserved init() partition layout.
+App-specific automated tests are not included. Shared checks compare the
+preserved init() partition layout across all firmware apps.
 
 Not verified: live play across multiple badges, wireless range, touch/button
 latency, and battery runtime. For a device check, join two badges, run all three

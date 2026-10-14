@@ -1,6 +1,11 @@
 .arduino/
 build/
 flight_radar/secrets.h
+bloom/secrets.h
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+bloom/relay/.env
 pulse_station/helvetica_generated.h
 recovery/
 .DS_Store

@@ -9,6 +9,7 @@ instructions. The Mac companions have no standalone graphical screen.
 
 | App                                   | Runs on                         | What it does                                                                                                                                                          | Get started                                                                                                                                   |
 | ------------------------------------- | ------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Bloom](bloom/)                       | Two StopWatches + internet relay | Send a pink pixel bloom and breathing haptics across different Wi-Fi networks; double tap to return a violet layer, then settle into the clock.                        | [Preview](bloom/README.md#bloom) · [Controls](bloom/README.md#the-interaction) · [Setup](bloom/README.md#set-up-the-internet-relay)                |
 | [Flight Radar](flight_radar/)         | StopWatch + Wi-Fi               | Shows nearby aircraft around a configurable location, with heading markers, trails, altitude colors, aircraft details, and adjustable range.                          | [Preview](flight_radar/README.md#preview) · [Controls](flight_radar/README.md#controls) · [Build](flight_radar/README.md#build)               |
 | [Pulse Station](pulse_station/)       | StopWatch                       | A subway-inspired interface with a 25-minute Focus timer, USB hold-to-talk mode, and battery percentage. The Agents screen is a disconnected placeholder.             | [Preview](pulse_station/README.md#preview) · [Guide and controls](pulse_station/README.md#controls) · [Build](pulse_station/README.md#build)  |
 | [Reactions](reactions/)               | 2–5 StopWatch badges            | Host a local room and compete in hold timing, quick reaction, and rhythm challenges.                                                                                  | [Preview](reactions/README.md#preview) · [Guide and controls](reactions/README.md#create-or-join-a-game) · [Build](reactions/README.md#build) |
@@ -21,13 +22,30 @@ Each badge app is separate firmware; install one at a time. Pulse Station's Focu
 timer runs on its own. Its Talk mode uses both Mac
 companions over USB.
 
+## Development
+
+Run `./scripts/setup.sh` once to install the pinned Arduino tools. Build any firmware
+app with `./scripts/build-app.sh APP`, using its directory name (for example,
+`bloom` or `pulse_station`). Outputs stay in the ignored `build/APP/` directory.
+App READMEs describe any credentials or extra dependencies required before building.
+
+`./scripts/test.sh` runs the available Bloom regression tests, checks shell syntax,
+and compares all six partition tables. It requires C++17 and Python 3; the relay
+test opens a temporary localhost port. Legacy app-specific test sources are not
+included. Test binaries use temporary storage and are removed when the checks finish.
+
+The PNG previews and Bloom's paired animation are documentation assets. Keep
+`scripts/preview-bloom.py` and its C++ renderer to refresh them after visual changes.
+Build output, Python caches, and `.arduino/downloads/` archives are disposable;
+`.arduino/data/` and `.arduino/user/` contain the installed compiler and libraries.
+
 ## Installation and recovery
 
 Building does **not** modify the badge. Installing replaces its current
 application, so make a fresh full-flash backup and confirm replacement first.
 Store device backups outside this repository. Recovery images are not included.
 
-All five firmware apps use the init() v1.2.0 partition layout: two 3 MB app slots,
+All six firmware apps use the init() v1.2.0 partition layout: two 3 MB app slots,
 existing NVS and FAT data regions.
 The firmware does not mount or format profile storage. Verify the actual connected
 device's table and boot selection before uploading; a matching build table alone

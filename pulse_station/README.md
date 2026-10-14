@@ -49,9 +49,9 @@ Run these commands from the repository root:
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-python3 -m pip install pyserial Pillow
+python3 -m pip install Pillow
 ./scripts/setup.sh
-./scripts/build-pulse.sh
+./scripts/build-app.sh pulse_station
 ./scripts/test.sh
 ```
 
@@ -59,7 +59,7 @@ Setup installs the pinned Arduino tools into `.arduino/` without changing your
 global Arduino configuration. Initial downloads require several GB of disk space.
 Pulse uses the same partition layout as the radar. Font generation uses Pillow and
 `/System/Library/Fonts/Helvetica.ttc`. Generated glyphs stay in the ignored
-`pulse_station/helvetica_generated.h`; builds stay private in `build/pulse/`.
+`pulse_station/helvetica_generated.h`; builds stay private in `build/pulse_station/`.
 Pulse does not use Wi-Fi, mount conference storage, or embed Wi-Fi credentials.
 Installing it replaces the radar application; the radar remains rebuildable.
 
@@ -81,30 +81,14 @@ newline. The host replies `voice <session> ready|empty|permission|error`. Stale
 results are ignored. Capturing pauses framebuffer diagnostics to keep audio
 continuous. The microphone stops before transcription starts.
 
-Host regression checks cover pause/resume, reset, completion, delayed updates,
-and the millisecond clock wrapping. USB-injected touches verify the firmware's
-input handler, not the physical touch sensor. Physical touch, buttons, vibration,
-and battery runtime still need a hands-on check.
+App-specific automated and USB device test scripts are not included; see
+[available checks](../README.md#development). USB-injected touches exercise the
+firmware's input handler, not the physical touch sensor. Check pause/resume,
+reset, completion, physical controls, vibration, and battery runtime on the badge.
 
 Speak near the badge and review the transcript; quiet speech can be misheard.
-Host tests cover connection gating, warm-up, stale results, size limits, malformed audio
-headers, silence, volume normalization, clipboard delivery, and permission errors.
-The physical touch/B-button hold and a full 30-second recording remain unverified.
-
-After installation, run the optional device checks from the repository root
-with the bridge stopped:
-
-```sh
-python3 tests/pulse_device_test.py /dev/cu.usbmodemXXXX
-say -o build/pulse-speech-test.aiff 'I never send a message automatically.'
-python3 tests/talk_device_test.py /dev/cu.usbmodemXXXX
-```
-
-These checks operate the installed app and save screenshots/results in
-`build/pulse/device-check/`. The Talk check plays a synthetic phrase through the
-Mac speakers and records it with the badge microphone; it does not copy or send
-the transcript. [Build and authorize the speech helper](../mac/README.md#build-and-authorize)
-before running it.
+Check a short recording, silence, disconnect/reconnect, and a full 30-second
+recording with the [Mac companions](../mac/README.md) before relying on Talk.
 
 See [installation and recovery](../README.md#installation-and-recovery) before
 flashing. No device backups or installation records are distributed.

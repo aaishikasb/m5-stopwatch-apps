@@ -36,7 +36,7 @@ and pass the badge's port explicitly:
 
 ```sh
 python3 -m serial.tools.list_ports
-./scripts/talk.sh --port /dev/cu.usbmodemXXXX
+python3 mac/pulse_talk.py --port /dev/cu.usbmodemXXXX
 ```
 
 Replace the example port with your badge's port. The bridge runs until Ctrl+C.

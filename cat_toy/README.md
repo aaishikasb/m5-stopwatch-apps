@@ -29,8 +29,8 @@ Requires Arduino CLI (or Arduino IDE on macOS). Install the pinned tools with
 ./scripts/test.sh
 ```
 
-Host tests require a C++17 compiler, Python 3, and `pyserial` installed in your
-Python environment. The firmware build itself needs no Python packages.
+Shared checks require C++17 and Python 3; see [check coverage](../README.md#development).
+The firmware build itself needs no Python packages.
 
 Firmware goes to `build/cat_toy/`. No upload is performed. Read the shared
 [installation guidance](../README.md#installation-and-recovery) before flashing.
@@ -56,8 +56,8 @@ session with a physical toy the cat can catch.
 
 ## Verification
 
-Host tests check mouse bounds, catch hit testing, pause/resume, session completion,
-restart, and clock wrap. Firmware compilation and partition checks pass.
+App-specific automated tests are not included. Check catches, speed changes,
+pause/resume, session completion, and restart on the badge.
 
 Not verified: actual cat-paw touch response, behavior during play, and battery
 runtime. Human touch can check catches and controls before supervised cat play.
